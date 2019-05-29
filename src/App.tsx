@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import TitleComponent from './TitleComponent'
+import Pet from "./Pet"
+import PetComponent from './PetComponent'
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// const App: React.FC = () => {
+//   const [pets, setPets] = useState([new Pet("Kyle", "Dog", "Corgi"), new Pet("Mark", "Cat", "Tortie")])
+
+//   return (
+//     <div className="App">
+//       <h1>Hello World</h1>
+//       <TitleComponent otherText={"Earth"} text={"Goodbye"}/>
+//       {
+//         pets.map(pet => <PetComponent {...pet}/>)
+//       }
+      
+//     </div>
+//   );
+// }
+
+interface IState{
+  pets: Pet[];
+}
+class App extends React.PureComponent<any, IState>{
+  constructor(props: any){
+    super(props);
+    this.state = {
+      pets: [new Pet("Kyle", "Dog", "Corgi"), new Pet("Mark", "Cat", "Tortie")]
+    }
+  }
+
+  render(){
+    const {pets} = this.state
+    return (
+      <div className="App">
+        <h1>Hello World</h1>
+        <TitleComponent otherText={"Earth"} text={"Goodbye"}/>
+        {
+          pets.map(pet => <PetComponent key={pet.name} {...pet}/>)
+        }
+        
+      </div>
+    );
+  }
 }
 
 export default App;
